@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ALEX NEWS - Searchable</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    /* Header bar */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #222;
+      color: white;
+      padding: 10px 20px;
+    }
+        footer {
+      background-color: #222;
+      color: #fff;
+      text-align: center;
+      padding: 15px;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+    }
+
+    .left-group {
+      display: flex;
+      align-items: center;
+    }
+
+    .menu-icon {
+      width: 30px;
+      cursor: pointer;
+      margin-right: 15px;
+    }
+
+    .menu-icon div {
+      height: 4px;
+      background-color: white;
+      margin: 5px 0;
+    }
+
+    .title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-right: 20px;
+    }
+
+    .search-form {
+      display: flex;
+    }
+
+    .search-form input[type="text"] {
+      padding: 5px;
+      width: 100px; /* Smaller width */
+      border: none;
+      border-radius: 3px 0 0 3px;
+    }
+
+    .search-form button {
+      padding: 5px 10px;
+      border: none;
+      background-color: #ff6600;
+      color: white;
+      border-radius: 0 3px 3px 0;
+      cursor: pointer;
+    }
+
+    /* Side menu */
+    .side-menu {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      transition: 0.3s;
+      padding-top: 60px;
+    }
+
+    .side-menu a {
+      padding: 10px 20px;
+      text-decoration: none;
+      font-size: 18px;
+      color: white;
+      display: block;
+      transition: 0.2s;
+    }
+
+    .side-menu a:hover {
+      background-color: #575757;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 30px;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* News content */
+    .news-container {
+      padding: 20px;
+    }
+
+    .news-item {
+      background: white;
+      margin-bottom: 15px;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .news-item h2 {
+      margin: 0 0 10px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .page-bar {
+      background-color: #ddd;
+      color: #333;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .youtube-thumbnail {
+      width: 100%;
+      max-width: 400px;
+      margin: 3px auto;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .youtube-thumbnail img {
+      width: 100%;
+      display: block;
+    }
+
+    .youtube-thumbnail p {
+      text-align: center;
+      margin: 0;
+      padding: 10px;
+      background-color: #f9f9f9;
+      font-weight: bold;
+      margin-top: 2px;
+    }
+        img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header with hamburger, title, and search -->
+<div class="header">
+  <div class="left-group">
+    <div class="menu-icon" onclick="openMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div class="title">ALEX NEWS</div>
+  </div>
+
+  <form class="search-form" onsubmit="event.preventDefault()">
+    <input type="text" id="searchInput" placeholder="Search news..." onkeyup="filterNews()" />
+    <button type="submit">Search</button>
+  </form>
+</div>
+
+<!-- Side Menu -->
+<div id="sideMenu" class="side-menu">
+  <span class="close-btn" onclick="closeMenu()">&times;</span>
+  <a href="index.html">Home</a>
+  <a href="News.html">News</a>
+  <a href="Review.html">Reviews</a>
+  <a href="Contact.html">Contact</a>
+</div>
+
+<div class="page-bar">
+  NEWS
+</div>
+  <div class="container">
+    <h1>Valorant Mobile: Upcoming Chinese Beta Test Details Revealed</h1>
+    <p class="meta">By Alex | April 29, 2025</p>
+    <img src="1.jpg">
+    <p>Exciting news for Valorant fans! Riot Games is officially preparing to launch a **closed beta test** for Valorant Mobile exclusively in China. The announcement, made through Chinese social platforms and Tencent’s official Valorant portal, has sparked massive excitement across the community.</p>
+
+    <h2>What We Know So Far</h2>
+    <ul>
+      <li><strong>Launch Date:</strong> Expected mid-May 2025</li>
+      <li><strong>Eligibility:</strong> Chinese mobile users (via pre-registration)</li>
+      <li><strong>Platforms:</strong> Android and iOS</li>
+      <li><strong>Progress Reset:</strong> Yes, all data will reset post-beta</li>
+    </ul>
+
+    <p>The beta will test core mechanics, touch controls, and server performance before expanding to other regions. Players will experience familiar agents, maps, and abilities in a format tailored for mobile gameplay.</p>
+
+    <h2>How to Register</h2>
+    <p>Players can register through Tencent’s official site:</p>
+    <p>Wechat or QQ account is required</p>
+      <!--Tab to edit-->
+    <//p>
+      <!--Tab to edit-->
+    </p>
+    <a href="https://valm.qq.com/act/a20250312preregister/?autoRefreshCookie=1&e_code=547223&wish_code=5ccafe428acb581811212a60377b2749" target="_blank">Click Here</a>
+
+    <h2>Will It Come Globally?</h2>
+    <p>While Riot hasn’t confirmed a global beta yet, developers hinted at staged regional testing. Global players should stay alert for beta announcements in their country soon.</p>
+
+    <h2>Final Thoughts</h2>
+    <p>Valorant Mobile's China beta will be a critical step toward a full launch. With tight controls, agent balance, and Riot’s dedication to mobile adaptation, the game is shaping up to be a serious contender in the mobile eSports arena.</p>
+
+    <p>Stay tuned for more updates and hands-on impressions as soon as the beta goes live!</p>
+    
+    <br><br><br>
+
+
+<script>
+  function openMenu() {
+    document.getElementById("sideMenu").style.width = "250px";
+  }
+
+  function closeMenu() {
+    document.getElementById("sideMenu").style.width = "0";
+  }
+
+  function filterNews() {
+    const input = document.getElementById('searchInput').value.toLowerCase();
+
+    // Select all news items and video titles
+    const newsItems = document.querySelectorAll('.news-item');
+    const videoTitles = document.querySelectorAll('h4');
+
+    // Filter news items based on input
+   newsItems.forEach(item => {
+      const text = item.innerText.toLowerCase();
+      item.style.display = text.includes(input) ? 'block' : 'none';
+    });
+
+    // Filter video titles based on input
+    videoTitles.forEach(item => {
+      const text = item.innerText.toLowerCase();
+      const thumbnail = item.nextElementSibling;  // Get the thumbnail next to the video title
+     if (text.includes(input)) {
+        thumbnail.style.display = 'block';  // Show video thumbnail if title matches
+        item.style.display = 'block';  // Show the title if it matches
+      } else {
+      thumbnail.style.display = 'none';  // Hide the thumbnail if title doesn't match
+        item.style.display = 'none';  // Hide the title if it doesn't match
+      }
+   });
+  }
+</script>
+
+  <footer>
+    &copy; 2025 Alex. All rights reserved.
+  </footer>
+
+</body>
+</html>
