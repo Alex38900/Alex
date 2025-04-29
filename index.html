@@ -10,7 +10,7 @@
       --text-color: #000;
       --card-bg: #fff;
       --header-bg: #222;
-      --button-bg: #ff6600;
+      --button-bg: #FF5F1F;
       --page-bar-bg: #ddd;
     }
 
@@ -138,8 +138,8 @@
     }
 
     .page-bar {
-      background-color: var(--page-bar-bg);
-      color: var(--text-color);
+      background-color:#000000;
+      color: white;
       padding: 10px 20px;
       font-size: 16px;
       font-weight: bold;
@@ -147,7 +147,7 @@
     }
 
     .news-container {
-      padding: 20px;
+      padding: 10px;
     }
 
     .news-item {
@@ -155,9 +155,18 @@
       margin-bottom: 15px;
       padding: 15px;
       border-radius: 5px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-shadow: 5px 8px 15px rgba(0,0,0,0.1);
+      background-color: #ccc;
     }
+    .news-item2 {
+      background: var(--card-bg);
+      margin-bottom: 15px;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 5px 8px 15px rgba(0,0,0,0.1);
+      background-color: #ccc;
 
+    }
     .news-item h2 {
       margin: 0 0 10px;
     }
@@ -236,38 +245,38 @@
 </div>
 
 <div class="page-bar">Latest videos</div>
-
-<div style="padding: 10px;">
+<div class="news-container" id="newsList">
   <h4>• Rust mobile gameplay</h4>
-  <div class="video-wrapper">
-    <iframe
-      src="https://www.youtube.com/embed/Ahkoy5TkGIk"
+    <div class="news-item"> <div class="video-wrapper">
+      <iframe 
+            src="https://www.youtube.com/embed/Ahkoy5TkGIk"
+
       title="Test Video"
       frameborder="0"
       allowfullscreen>
-    </iframe>
+    </iframe></div>
   </div>
   <hr>
-
   <h4>• Valorant mobile Chinese beta test</h4>
-  <div class="video-wrapper">
+    <div class="news-item"> <div class="video-wrapper">
     <iframe
       src="https://www.youtube.com/embed/ygjq2RkfRdM"
+
       title="Test Video"
       frameborder="0"
       allowfullscreen>
-    </iframe>
+    </iframe></div>
   </div>
+  
   <hr>
-
-  <h4>•Delta force mobile global launch</h4>
-  <div class="video-wrapper">
+    <h4>•Delta force mobile global launch</h4>
+  <div class="news-item"> <div class="video-wrapper">
     <iframe
       src="https://www.youtube.com/embed/dez95rUfKa4"
       title="Test Video"
       frameborder="0"
       allowfullscreen>
-    </iframe>
+    </iframe></div>
   </div>
 </div>
 
