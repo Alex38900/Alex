@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ALEX NEWS - Searchable</title>
+  <style>
+    :root {
+      --bg-color: #FFFFE0; /* Light soft yellow background */
+      --text-color: #000;
+      --card-bg: #fff;
+      --header-bg: #222;
+      --button-bg: #FF5F1F;
+      --page-bar-bg: #ddd;
+    }
+
+    body.dark {
+      --bg-color: #121212;
+      --text-color: #eee;
+      --card-bg: #1e1e1e;
+      --header-bg: #000;
+      --button-bg: #ff8800;
+      --page-bar-bg: #333;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: var(--header-bg);
+      color: white;
+      padding: 10px 20px;
+      flex-wrap: wrap;
+    }
+
+    .left-group {
+      display: flex;
+      align-items: center;
+    }
+
+    .menu-icon {
+      width: 30px;
+      cursor: pointer;
+      margin-right: 15px;
+    }
+
+    .menu-icon div {
+      height: 4px;
+      background-color: white;
+      margin: 5px 0;
+    }
+
+    .title {
+      font-size: 40px;
+      font-weight: bold;
+      margin-right: 20px;
+    }
+
+    .search-form {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .search-form input[type="text"] {
+      padding: 5px;
+      width: 180px;
+      border: none;
+      border-radius: 3px 0 0 3px;
+    }
+
+    .search-form button {
+      padding: 5px 10px;
+      border: none;
+      background-color: var(--button-bg);
+      color: white;
+      border-radius: 0 3px 3px 0;
+      cursor: pointer;
+    }
+
+    .toggle-dark {
+      margin-left: 15px;
+      background: none;
+      border: 1px solid #888;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      background-color: #444;
+    }
+      footer {
+      background-color: #222;
+      color: #fff;
+      text-align: center;
+      padding: 15px;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+    }
+
+    .side-menu {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      transition: width 0.3s ease;
+      padding-top: 60px;
+      z-index: 999;
+      display: none;
+    }
+
+    .side-menu.open {
+      width: 250px;
+      display: block;
+    }
+
+    .side-menu a {
+      padding: 10px 20px;
+      text-decoration: none;
+      font-size: 18px;
+      color: white;
+      display: block;
+    }
+
+    .side-menu a:hover {
+      background-color: #575757;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 30px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .page-bar {
+      background-color:#000000;
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border-bottom: 1px solid ;
+    }
+
+    .news-container {
+      padding: 10px;
+    }
+
+    .news-item {
+      background: var(--card-bg);
+      margin-bottom: 15px;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 5px 8px 15px rgba(0,0,0,0.1);
+      background-color: #ccc;
+    }
+    .news-item2 {
+      background: var(--card-bg);
+      margin-bottom: 15px;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 5px 8px 15px rgba(0,0,0,0.1);
+      background-color: #ccc;
+
+    }
+    .news-item h2 {
+      margin: 0 0 10px;
+    }
+
+    @media (max-width: 600px) {
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .search-form {
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      .search-form input[type="text"] {
+        width: 60%;
+      }
+
+      .search-form button {
+        width: 30%;
+      }
+
+      .youtube-thumbnail {
+        max-width: 100%;
+      }
+
+      .news-item h2 {
+        font-size: 1.2rem;
+      }
+    }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      height: 0;
+      overflow: hidden;
+      max-width: 100%;
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="left-group">
+    <div class="menu-icon" onclick="openMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div class="title"> Dramic Gaming</div>
+  </div>
+</div>
+
+<div id="sideMenu" class="side-menu">
+  <span class="close-btn" onclick="closeMenu()">&times;</span>
+  <a href="index.html">Home</a>
+  <a href="News.html">News</a>
+  <a href="Reviews.html">Reviews</a>
+  <a href="Contact.html">Contact</a>
+  <button class="toggle-dark" onclick="toggleDarkMode()">Dark Mode</button>
+</div>
+
+  <div class="news-container">
+  <h1>"Shadow Rift" Launches Today – A Dark Fantasy Adventure Begins</h1>
+  <p class="meta">By Alex | April 30, 2025</p>
+
+  <p>Today marks the official release of <em>Shadow Rift</em>, an exciting new action-adventure game that immerses players in a mysterious realm filled with magic, dangerous creatures, and secrets hidden in the shadows. Developed by Arcane Edge Studios, <em>Shadow Rift</em> is already being hailed as one of the most visually captivating and atmospherically rich games of the year.</p>
+  
+  <h2>A World Shrouded in Darkness</h2>
+  <p>Set in the ancient and cursed land of Eldrath, <em>Shadow Rift</em> follows the story of Kael, a lone warrior gifted with the power to manipulate shadow energy. As players venture through treacherous landscapes, ancient ruins, and haunted forests, they will unravel the truth behind the rift that threatens to consume the world in darkness.</p>
+  
+  <h2>Gameplay and Features</h2>
+  <p><em>Shadow Rift</em> blends real-time combat, puzzle-solving, and exploration within an expansive open-world environment. Key features include:</p>
+  <ul>
+    <li><strong>Dynamic Shadow Mechanics</strong> – Use shadows to attack, evade, or solve intricate environmental puzzles.</li>
+    <li><strong>Narrative-Driven Quests</strong> – A compelling story with branching dialogues and multiple possible endings.</li>
+    <li><strong>Stunning Visuals</strong> – Powered by Unreal Engine 5, the game boasts breathtaking lighting, intricate textures, and an immersive sound design.</li>
+    <li><strong>Customizable Combat</strong> – Choose your preferred weapons, magical abilities, and skill trees, tailored to your playstyle.</li>
+  </ul>
+  
+  <h2>Available Platforms</h2>
+  <p><em>Shadow Rift</em> is now available on <strong>PC</strong>, <strong>PlayStation 5</strong>, and <strong>Xbox Series X|S</strong>, with a Nintendo Switch version set to launch in late 2025.</p>
+  
+  <h2>Early Reception</h2>
+  <p>Early reviews have praised the game for its atmospheric world-building, as well as its challenging yet rewarding gameplay. Fans of <em>Dark Souls</em>, <em>Hollow Knight</em>, and <em>Elden Ring</em> will find <em>Shadow Rift</em> a captivating new experience to explore.</p>
+</div>
+    <br>
+    
+    <div class="page-bar">Other News</div>
+
+<div class="news-container" id="newsList">
+  <div class="news-item"><h2>Valorant mobile beta test</h2><p>Riot Games has finally revealed the date of upcoming beta test of Valorant Mobile.<br><a href="valo1.html">Read More</a></p></div>
+  <div class="news-item"><h2>New Game "Shadow Rift" Launches Today</h2><p>Experience next-gen fantasy with stunning visuals.<br><a href="valo1.html">Read More</a></p></div>
+  <div class="news-item"><h2>Cyber Storm: Expansion Pack Revealed</h2><p>Includes 5 new maps and a new class.<br><a href="#">Read More</a></p></div>
+  <div class="news-item"><h2>Top 10 Multiplayer Games in 2025</h2><p>Discover the best co-op experiences of the year.<br><a href="#">Read More</a></p></div>
+  <div class="news-item"><h2>Battle Stars: Mobile Update</h2><p>Improved graphics and new battle pass system added.<br><a href="#">Read More</a></p></div>
+</div>
+    
+    <br><br>
+  
+
+
+
+<script>
+  function openMenu() {
+    const menu = document.getElementById("sideMenu");
+    menu.classList.add("open");
+  }
+
+  function closeMenu() {
+    const menu = document.getElementById("sideMenu");
+    menu.classList.remove("open");
+  }
+
+  function filterNews() {
+    const input = document.getElementById('searchInput').value.toLowerCase();
+    const newsItems = document.querySelectorAll('.news-item');
+    const videoTitles = document.querySelectorAll('h4');
+
+    newsItems.forEach(item => {
+      const text = item.innerText.toLowerCase();
+      item.style.display = text.includes(input) ? 'block' : 'none';
+    });
+
+    videoTitles.forEach(item => {
+      const text = item.innerText.toLowerCase();
+      const thumbnail = item.nextElementSibling;
+      if (text.includes(input)) {
+        item.style.display = 'block';
+        thumbnail.style.display = 'block';
+      } else {
+        item.style.display = 'none';
+        thumbnail.style.display = 'none';
+      }
+    });
+  }
+
+  function toggleDarkMode() {
+    document.body.classList.toggle('dark');
+  }
+</script>
+
+  <footer>
+    &copy; 2025 Alex. All rights reserved.
+  </footer>
+
+
+</body>
+</html>
