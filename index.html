@@ -5,20 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ALEX NEWS - Searchable</title>
   <style>
+    :root {
+      --bg-color: #FFFFE0; /* Light soft yellow background */
+      --text-color: #000;
+      --card-bg: #fff;
+      --header-bg: #222;
+      --button-bg: #ff6600;
+      --page-bar-bg: #ddd;
+    }
+
+    body.dark {
+      --bg-color: #121212;
+      --text-color: #eee;
+      --card-bg: #1e1e1e;
+      --header-bg: #000;
+      --button-bg: #ff8800;
+      --page-bar-bg: #333;
+    }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 0.3s, color 0.3s;
     }
 
-    /* Header bar */
     .header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background-color: #222;
+      background-color: var(--header-bg);
       color: white;
       padding: 10px 20px;
+      flex-wrap: wrap;
     }
 
     .left-group {
@@ -39,18 +59,19 @@
     }
 
     .title {
-      font-size: 20px;
+      font-size: 40px;
       font-weight: bold;
       margin-right: 20px;
     }
 
     .search-form {
       display: flex;
+      flex-wrap: wrap;
     }
 
     .search-form input[type="text"] {
       padding: 5px;
-      width: 100px; /* Smaller width */
+      width: 180px;
       border: none;
       border-radius: 3px 0 0 3px;
     }
@@ -58,13 +79,24 @@
     .search-form button {
       padding: 5px 10px;
       border: none;
-      background-color: #ff6600;
+      background-color: var(--button-bg);
       color: white;
       border-radius: 0 3px 3px 0;
       cursor: pointer;
     }
 
-    /* Side menu */
+    .toggle-dark {
+      margin-left: 15px;
+      background: none;
+      border: 1px solid #888;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      background-color: #444;
+    }
+
     .side-menu {
       height: 100%;
       width: 0;
@@ -73,8 +105,15 @@
       left: 0;
       background-color: #111;
       overflow-x: hidden;
-      transition: 0.3s;
+      transition: width 0.3s ease;
       padding-top: 60px;
+      z-index: 999;
+      display: none;
+    }
+
+    .side-menu.open {
+      width: 250px;
+      display: block;
     }
 
     .side-menu a {
@@ -83,7 +122,6 @@
       font-size: 18px;
       color: white;
       display: block;
-      transition: 0.2s;
     }
 
     .side-menu a:hover {
@@ -99,13 +137,21 @@
       cursor: pointer;
     }
 
-    /* News content */
+    .page-bar {
+      background-color: var(--page-bar-bg);
+      color: var(--text-color);
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border-bottom: 1px solid ;
+    }
+
     .news-container {
       padding: 20px;
     }
 
     .news-item {
-      background: white;
+      background: var(--card-bg);
       margin-bottom: 15px;
       padding: 15px;
       border-radius: 5px;
@@ -116,48 +162,54 @@
       margin: 0 0 10px;
     }
 
-    .hidden {
-      display: none;
+    @media (max-width: 600px) {
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .search-form {
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      .search-form input[type="text"] {
+        width: 60%;
+      }
+
+      .search-form button {
+        width: 30%;
+      }
+
+      .youtube-thumbnail {
+        max-width: 100%;
+      }
+
+      .news-item h2 {
+        font-size: 1.2rem;
+      }
     }
 
-    .page-bar {
-      background-color: #ddd;
-      color: #333;
-      padding: 10px 20px;
-      font-size: 16px;
-      font-weight: bold;
-      border-bottom: 1px solid #ccc;
-    }
-
-    .youtube-thumbnail {
-      width: 100%;
-      max-width: 400px;
-      margin: 3px auto;
-      cursor: pointer;
-      border: 1px solid #ccc;
-      border-radius: 8px;
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      height: 0;
       overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      max-width: 100%;
     }
 
-    .youtube-thumbnail img {
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
-      display: block;
+      height: 100%;
     }
 
-    .youtube-thumbnail p {
-      text-align: center;
-      margin: 0;
-      padding: 10px;
-      background-color: #f9f9f9;
-      font-weight: bold;
-      margin-top: 2px;
-    }
   </style>
 </head>
 <body>
 
-<!-- Header with hamburger, title, and search -->
 <div class="header">
   <div class="left-group">
     <div class="menu-icon" onclick="openMenu()">
@@ -165,7 +217,7 @@
       <div></div>
       <div></div>
     </div>
-    <div class="title">ALEX NEWS</div>
+    <div class="title"> Dramic Gaming</div>
   </div>
 
   <form class="search-form" onsubmit="event.preventDefault()">
@@ -174,92 +226,97 @@
   </form>
 </div>
 
-<!-- Side Menu -->
 <div id="sideMenu" class="side-menu">
   <span class="close-btn" onclick="closeMenu()">&times;</span>
   <a href="index.html">Home</a>
   <a href="News.html">News</a>
-  <a href="Review.htmp">Reviews</a>
+  <a href="Reviews.html">Reviews</a>
   <a href="Contact.html">Contact</a>
+  <button class="toggle-dark" onclick="toggleDarkMode()">Dark Mode</button>
 </div>
 
-<div class="page-bar">
-  Home Page
+<div class="page-bar">Latest videos</div>
+
+<div style="padding: 10px;">
+  <h4>• Rust mobile gameplay</h4>
+  <div class="video-wrapper">
+    <iframe
+      src="https://www.youtube.com/embed/Ahkoy5TkGIk"
+      title="Test Video"
+      frameborder="0"
+      allowfullscreen>
+    </iframe>
+  </div>
+  <hr>
+
+  <h4>• Valorant mobile Chinese beta test</h4>
+  <div class="video-wrapper">
+    <iframe
+      src="https://www.youtube.com/embed/ygjq2RkfRdM"
+      title="Test Video"
+      frameborder="0"
+      allowfullscreen>
+    </iframe>
+  </div>
+  <hr>
+
+  <h4>•Delta force mobile global launch</h4>
+  <div class="video-wrapper">
+    <iframe
+      src="https://www.youtube.com/embed/dez95rUfKa4"
+      title="Test Video"
+      frameborder="0"
+      allowfullscreen>
+    </iframe>
+  </div>
 </div>
 
-<u><h2><b>Latest videos</b></h2></u>
+<div class="page-bar">Latest News</div>
 
-<h4>• Rust mobile gameplay</h4>
-<a href="https://youtu.be/Ahkoy5TkGIk?si=hz1qFpKPK-x0U29C" target="_blank" class="youtube-thumbnail">
-  <img src="https://img.youtube.com/vi/Ahkoy5TkGIk/hqdefault.jpg" alt="Video Thumbnail">
-</a>
-<hr>
-
-<h4>• Valorant mobile Chinese beta test </h4>
-<a href="https://youtu.be/ygjq2RkfRdM?si=GGucC76mvM0nk9Jk" target="_blank" class="youtube-thumbnail">
-  <img src="https://img.youtube.com/vi/ygjq2RkfRdM/hqdefault.jpg" alt="Video Thumbnail">
-</a>
-<hr>
-
-<div class="page-bar">
-  News Content
-</div>
-
-<!-- News content -->
 <div class="news-container" id="newsList">
-    <div class="news-item"><h2>Valorant mobile beta test</h2><p>Riot Games has finally revealed the date of upcomming beta test of Valorant Mobile. 
-  <br><a href="valo1.html" class="read-more">Read More</a>
-    </p></div>
-  <div class="news-item"><h2>New Game "Shadow Rift" Launches Today</h2><p>Experience next-gen fantasy with stunning visuals.        
-  <br><a href="valo1.html" class="read-more">Read More</a>
-</p></div>
-  <div class="news-item"><h2>Cyber Storm: Expansion Pack Revealed</h2><p>Includes 5 new maps and a new class.
-          <br><a href="#" class="read-more">Read More</a>
-</p></div>
-  <div class="news-item"><h2>Top 10 Multiplayer Games in 2025</h2><p>Discover the best co-op experiences of the year.
-          <br><a href="#" class="read-more">Read More</a>
-</p></div>
-  <div class="news-item"><h2>Battle Stars: Mobile Update</h2><p>Improved graphics and new battle pass system added.
-        <br><a href="#" class="read-more">Read More</a>
-</p></div>
-      
-
+  <div class="news-item"><h2>Valorant mobile beta test</h2><p>Riot Games has finally revealed the date of upcoming beta test of Valorant Mobile.<br><a href="valo1.html">Read More</a></p></div>
+  <div class="news-item"><h2>New Game "Shadow Rift" Launches Today</h2><p>Experience next-gen fantasy with stunning visuals.<br><a href="valo1.html">Read More</a></p></div>
+  <div class="news-item"><h2>Cyber Storm: Expansion Pack Revealed</h2><p>Includes 5 new maps and a new class.<br><a href="#">Read More</a></p></div>
+  <div class="news-item"><h2>Top 10 Multiplayer Games in 2025</h2><p>Discover the best co-op experiences of the year.<br><a href="#">Read More</a></p></div>
+  <div class="news-item"><h2>Battle Stars: Mobile Update</h2><p>Improved graphics and new battle pass system added.<br><a href="#">Read More</a></p></div>
 </div>
 
 <script>
   function openMenu() {
-    document.getElementById("sideMenu").style.width = "250px";
+    const menu = document.getElementById("sideMenu");
+    menu.classList.add("open");
   }
 
   function closeMenu() {
-    document.getElementById("sideMenu").style.width = "0";
+    const menu = document.getElementById("sideMenu");
+    menu.classList.remove("open");
   }
 
   function filterNews() {
     const input = document.getElementById('searchInput').value.toLowerCase();
-
-    // Select all news items and video titles
     const newsItems = document.querySelectorAll('.news-item');
     const videoTitles = document.querySelectorAll('h4');
 
-    // Filter news items based on input
-   newsItems.forEach(item => {
+    newsItems.forEach(item => {
       const text = item.innerText.toLowerCase();
       item.style.display = text.includes(input) ? 'block' : 'none';
     });
 
-    // Filter video titles based on input
     videoTitles.forEach(item => {
       const text = item.innerText.toLowerCase();
-      const thumbnail = item.nextElementSibling;  // Get the thumbnail next to the video title
-     if (text.includes(input)) {
-        thumbnail.style.display = 'block';  // Show video thumbnail if title matches
-        item.style.display = 'block';  // Show the title if it matches
+      const thumbnail = item.nextElementSibling;
+      if (text.includes(input)) {
+        item.style.display = 'block';
+        thumbnail.style.display = 'block';
       } else {
-      thumbnail.style.display = 'none';  // Hide the thumbnail if title doesn't match
-        item.style.display = 'none';  // Hide the title if it doesn't match
+        item.style.display = 'none';
+        thumbnail.style.display = 'none';
       }
-   });
+    });
+  }
+
+  function toggleDarkMode() {
+    document.body.classList.toggle('dark');
   }
 </script>
 
