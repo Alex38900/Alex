@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ALEX NEWS - Searchable</title>
+  <style>
+    :root {
+      --bg-color: #FFFFE0; /* Light soft yellow background */
+      --text-color: #000;
+      --card-bg: #fff;
+      --header-bg: #222;
+      --button-bg: #FF5F1F;
+      --page-bar-bg: #ddd;
+    }
+
+    body.dark {
+      --bg-color: #121212;
+      --text-color: #eee;
+      --card-bg: #1e1e1e;
+      --header-bg: #000;
+      --button-bg: #ff8800;
+      --page-bar-bg: #333;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: var(--header-bg);
+      color: white;
+      padding: 10px 20px;
+      flex-wrap: wrap;
+    }
+
+    .left-group {
+      display: flex;
+      align-items: center;
+    }
+
+    .menu-icon {
+      width: 30px;
+      cursor: pointer;
+      margin-right: 15px;
+    }
+
+    .menu-icon div {
+      height: 4px;
+      background-color: white;
+      margin: 5px 0;
+    }
+
+    .title {
+      font-size: 40px;
+      font-weight: bold;
+      margin-right: 20px;
+    }
+
+    .search-form {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .search-form input[type="text"] {
+      padding: 5px;
+      width: 180px;
+      border: none;
+      border-radius: 3px 0 0 3px;
+    }
+
+    .search-form button {
+      padding: 5px 10px;
+      border: none;
+      background-color: var(--button-bg);
+      color: white;
+      border-radius: 0 3px 3px 0;
+      cursor: pointer;
+    }
+
+    .toggle-dark {
+      margin-left: 15px;
+      background: none;
+      border: 1px solid #888;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      background-color: #444;
+    }
+      footer {
+      background-color: #222;
+      color: #fff;
+      text-align: center;
+      padding: 15px;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+    }
+
+    .side-menu {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      transition: width 0.3s ease;
+      padding-top: 60px;
+      z-index: 999;
+      display: none;
+    }
+
+    .side-menu.open {
+      width: 250px;
+      display: block;
+    }
+
+    .side-menu a {
+      padding: 10px 20px;
+      text-decoration: none;
+      font-size: 18px;
+      color: white;
+      display: block;
+    }
+
+    .side-menu a:hover {
+      background-color: #575757;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 30px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .page-bar {
+      background-color:#000000;
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border-bottom: 1px solid ;
+    }
+
+    .news-container {
+      padding: 10px;
+    }
+
+    .news-item {
+      background: var(--card-bg);
+      margin-bottom: 15px;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 5px 8px 15px rgba(0,0,0,0.1);
+      background-color: #ccc;
+    }
+    .news-item2 {
+      background: var(--card-bg);
+      margin-bottom: 15px;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 5px 8px 15px rgba(0,0,0,0.1);
+      background-color: #ccc;
+
+    }
+    .news-item h2 {
+      margin: 0 0 10px;
+    }
+
+    @media (max-width: 600px) {
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .search-form {
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      .search-form input[type="text"] {
+        width: 60%;
+      }
+
+      .search-form button {
+        width: 30%;
+      }
+
+      .youtube-thumbnail {
+        max-width: 100%;
+      }
+
+      .news-item h2 {
+        font-size: 1.2rem;
+      }
+    }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      height: 0;
+      overflow: hidden;
+      max-width: 100%;
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+            img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="left-group">
+    <div class="menu-icon" onclick="openMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div class="title"> Dramic Gaming</div>
+  </div>
+</div>
+
+<div id="sideMenu" class="side-menu">
+  <span class="close-btn" onclick="closeMenu()">&times;</span>
+  <a href="index.html">Home</a>
+  <a href="News.html">News</a>
+  <a href="Reviews.html">Reviews</a>
+  <a href="Contact.html">Contact</a>
+  <button class="toggle-dark" onclick="toggleDarkMode()">Dark Mode</button>
+</div>
+
+<div class="news-container">
+  <h1>Apex Legends Mobile Lost Its Last Chance as Respawn Shuts Down Key Projects</h1>
+   <p> By Alex | 30 April 2025</p>
+   <img src="Apex.jpeg">
+   <p><em>Apex Legends Mobile</em> is officially out of the game for good. Respawn Entertainment has confirmed the cancellation of two early-stage projects — including one directly tied to Apex’s mobile future. This marks the end of any possibility of revival for the once-promising title.</p>
+
+  <h2>The Final Nail in the Coffin</h2>
+   <p>After being removed from app stores in 2023, many fans hoped <em>Apex Legends Mobile</em> might return in a new form. However, Respawn's recent restructuring has erased those hopes. In an official statement, the studio confirmed the termination of an internal mobile project:</p>
+
+  <blockquote>
+    <strong>Respawn:</strong> “We’ve made the difficult decision to stop development on two early-stage projects. One of these was related to the Apex Legends universe but did not meet our quality expectations or long-term vision.”
+  </blockquote>
+
+  <h2>Why the Mobile Game Fell Apart</h2>
+  <ul>
+    <li><strong>Inconsistent Content Drops:</strong> Players were frustrated by slow updates and a lack of fresh content.</li>
+    <li><strong>Technical & Performance Issues:</strong> From device optimization problems to server lag, technical flaws plagued the experience.</li>
+    <li><strong>Overly Aggressive Monetization:</strong> The in-game economy leaned too heavily on microtransactions, alienating many users.</li>
+  </ul>
+
+  <h2>Respawn Refocuses on Core Projects</h2>
+  <p>Rather than stretching itself thin, Respawn is now focused on strengthening the core <em>Apex Legends</em> experience on console and PC. The cancelled mobile project reportedly failed to meet internal expectations, prompting the team to reallocate its efforts.</p>
+  <h2>No Comeback on the Horizon</h2>
+  <p>With the cancellation confirmed, <em>Apex Legends Mobile</em> won’t be returning — not as a reboot, not as a spin-off. EA and Respawn have officially moved on. Mobile FPS players will now turn to competitors like <em>Warzone Mobile</em>, <em>PUBG Mobile</em>, and <em>Call of Duty: Mobile</em> to fill the void.</p>
+   <p></p>
+
+</div>
+
+    <br>
+    
+    <div class="page-bar">Other News</div>
+
+<div class="news-container" id="newsList">
+    <div class="news-item"><h2>Apex Legends Mobile Lost Its Last Chance as Respawn Shuts Down Key Projects</h2><p>“We’ve made the difficult decision to stop development on two early-stage projects...<br><a href="Apex.html">Read More</a></p></div>
+
+  <div class="news-item"><h2>Valorant mobile beta test</h2><p>Riot Games has finally revealed the date of upcoming beta test of Valorant Mobile.<br><a href="valo1.html">Read More</a></p></div>
+  <div class="news-item"><h2>New Game "Shadow Rift" Launches Today</h2><p>Experience next-gen fantasy with stunning visuals.<br><a href="ShadowRift.html">Read More</a></p></div>
+  <div class="news-item"><h2>Cyber Storm: Expansion Pack Revealed</h2><p>Includes 5 new maps and a new class.<br><a href="CyberStorm.html">Read More</a></p></div>
+  <div class="news-item"><h2>Top 10 Multiplayer Games in 2025</h2><p>Discover the best co-op experiences of the year.<br><a href="Top10.html">Read More</a></p></div>
+  <div class="news-item"><h2>Battle Stars: Mobile Update</h2><p>Improved graphics and new battle pass system added.<br><a href="BattleStars.html">Read More</a></p></div>
+</div>
+    
+    <br><br>
+  
+
+
+
+<script>
+  function openMenu() {
+    const menu = document.getElementById("sideMenu");
+    menu.classList.add("open");
+  }
+
+  function closeMenu() {
+    const menu = document.getElementById("sideMenu");
+    menu.classList.remove("open");
+  }
+
+  function filterNews() {
+    const input = document.getElementById('searchInput').value.toLowerCase();
+    const newsItems = document.querySelectorAll('.news-item');
+    const videoTitles = document.querySelectorAll('h4');
+
+    newsItems.forEach(item => {
+      const text = item.innerText.toLowerCase();
+      item.style.display = text.includes(input) ? 'block' : 'none';
+    });
+
+    videoTitles.forEach(item => {
+      const text = item.innerText.toLowerCase();
+      const thumbnail = item.nextElementSibling;
+      if (text.includes(input)) {
+        item.style.display = 'block';
+        thumbnail.style.display = 'block';
+      } else {
+        item.style.display = 'none';
+        thumbnail.style.display = 'none';
+      }
+    });
+  }
+
+  function toggleDarkMode() {
+    document.body.classList.toggle('dark');
+  }
+</script>
+
+  <footer>
+    &copy; 2025 Alex. All rights reserved.
+  </footer>
+
+
+</body>
+</html>
