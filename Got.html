@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ALEX NEWS - Searchable</title>
+  <style>
+    :root {
+      --bg-color: #FFFFE0; /* Light soft yellow background */
+      --text-color: #000;
+      --card-bg: #fff;
+      --header-bg: #222;
+      --button-bg: #FF5F1F;
+      --page-bar-bg: #ddd;
+    }
+
+    body.dark {
+      --bg-color: #121212;
+      --text-color: #eee;
+      --card-bg: #1e1e1e;
+      --header-bg: #000;
+      --button-bg: #ff8800;
+      --page-bar-bg: #333;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: var(--header-bg);
+      color: white;
+      padding: 10px 20px;
+      flex-wrap: wrap;
+    }
+
+    .left-group {
+      display: flex;
+      align-items: center;
+    }
+
+    .menu-icon {
+      width: 30px;
+      cursor: pointer;
+      margin-right: 15px;
+    }
+
+    .menu-icon div {
+      height: 4px;
+      background-color: white;
+      margin: 5px 0;
+    }
+
+    .title {
+      font-size: 40px;
+      font-weight: bold;
+      margin-right: 20px;
+    }
+
+    .search-form {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .search-form input[type="text"] {
+      padding: 5px;
+      width: 180px;
+      border: none;
+      border-radius: 3px 0 0 3px;
+    }
+
+    .search-form button {
+      padding: 5px 10px;
+      border: none;
+      background-color: var(--button-bg);
+      color: white;
+      border-radius: 0 3px 3px 0;
+      cursor: pointer;
+    }
+
+    .toggle-dark {
+      margin-left: 15px;
+      background: none;
+      border: 1px solid #888;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      background-color: #444;
+    }
+      footer {
+      background-color: #222;
+      color: #fff;
+      text-align: center;
+      padding: 15px;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+    }
+
+    .side-menu {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      transition: width 0.3s ease;
+      padding-top: 60px;
+      z-index: 999;
+      display: none;
+    }
+
+    .side-menu.open {
+      width: 250px;
+      display: block;
+    }
+
+    .side-menu a {
+      padding: 10px 20px;
+      text-decoration: none;
+      font-size: 18px;
+      color: white;
+      display: block;
+    }
+
+    .side-menu a:hover {
+      background-color: #575757;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 30px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .page-bar {
+      background-color:#000000;
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border-bottom: 1px solid ;
+    }
+
+    .news-container {
+      padding: 10px;
+    }
+
+    .news-item {
+      background: var(--card-bg);
+      margin-bottom: 15px;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 5px 8px 15px rgba(0,0,0,0.1);
+      background-color: #ccc;
+    }
+    .news-item2 {
+      background: var(--card-bg);
+      margin-bottom: 15px;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 5px 8px 15px rgba(0,0,0,0.1);
+      background-color: #ccc;
+
+    }
+    .news-item h2 {
+      margin: 0 0 10px;
+    }
+
+    @media (max-width: 600px) {
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .search-form {
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      .search-form input[type="text"] {
+        width: 60%;
+      }
+
+      .search-form button {
+        width: 30%;
+      }
+
+      .youtube-thumbnail {
+        max-width: 100%;
+      }
+
+      .news-item h2 {
+        font-size: 1.2rem;
+      }
+    }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      height: 0;
+      overflow: hidden;
+      max-width: 100%;
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+            img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="left-group">
+    <div class="menu-icon" onclick="openMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div class="title"> Dramic Gaming</div>
+  </div>
+</div>
+
+<div id="sideMenu" class="side-menu">
+  <span class="close-btn" onclick="closeMenu()">&times;</span>
+  <a href="index.html">Home</a>
+  <a href="News.html">News</a>
+  <a href="Reviews.html">Reviews</a>
+  <a href="Contact.html">Contact</a>
+  <button class="toggle-dark" onclick="toggleDarkMode()">Dark Mode</button>
+</div>
+
+<div class="news-container">
+  <h1>Netmarble’s <em>Game of Thrones: Kingsroad</em> Launches May 21 — Pre-Registration Now Live</h1>
+  <p>By Alex | April 30, 2025</p>
+
+  <img src="got.jpg" alt="Game of Thrones Kingsroad Banner" />
+
+<div align="center">      
+<script type="text/javascript">
+	atOptions = {
+		'key' : '5b4deb743c2a271b450398f37bd4ffe2',
+		'format' : 'iframe',
+		'height' : 50,
+		'width' : 320,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//dipperflightrecommend.com/5b4deb743c2a271b450398f37bd4ffe2/invoke.js"></script>
+</div>
+  
+  <p>Fans of Westeros have something big to look forward to this spring. Netmarble has officially announced that <em>Game of Thrones: Kingsroad</em>, its highly anticipated strategy-RPG mobile title, will launch globally on <strong>May 21, 2025</strong>. Even better — <strong>pre-registration is live now</strong> on both the Google Play Store and Apple App Store.</p>
+
+  <h2>A Return to Westeros, Reimagined</h2>
+  <p><em>Kingsroad</em> is set during a time of deep conflict in the Seven Kingdoms, allowing players to step into the shoes of powerful lords and commanders vying for the Iron Throne. While based on the world of George R.R. Martin's <em>A Song of Ice and Fire</em>, the game introduces an original narrative path tailored for mobile gameplay.</p>
+  <p>Players will manage their own house, forge alliances, command armies, and face threats from both rival factions and iconic creatures — including white walkers and dragons.</p>
+
+  <h2>Gameplay: Strategy Meets RPG</h2>
+  <ul>
+    <li><strong>Hero Collection & Progression:</strong> Recruit characters both new and familiar from the GoT universe.</li>
+    <li><strong>Dynamic PvP & PvE Battles:</strong> Engage in large-scale battles across the map, including sieges and skirmishes.</li>
+    <li><strong>Alliance Systems:</strong> Team up with other players for territory control and kingdom domination.</li>
+    <li><strong>Expansive World Map:</strong> Explore major locations like Winterfell, King’s Landing, and The Wall.</li>
+  </ul>
+
+  <h2>Stunning Visuals & Lore-Driven Design</h2>
+  <p>The game promises console-quality visuals optimized for mobile. From the icy North to the deserts of Dorne, <em>Kingsroad</em> aims to immerse players in a living, breathing Westeros.</p>
+  <p>Netmarble, known for titles like <em>Marvel Future Fight</em> and <em>The Seven Deadly Sins: Grand Cross</em>, has partnered closely with HBO and Warner Bros. to ensure authenticity and lore accuracy.</p>
+
+  <h2>Pre-Registration Rewards</h2>
+  <p>Players who pre-register now will receive exclusive in-game rewards at launch, including:</p>
+  <ul>
+    <li>5-star Hero Summon Ticket</li>
+    <li>1,000 Gold</li>
+    <li>Custom "House Banner" Cosmetic</li>
+  </ul>
+  <p>You can pre-register through:<br>
+    - <a href="#">Google Play Store</a><br>
+    - <a href="#">Apple App Store</a><br>
+    - <a href="#">Official Website</a>
+  </p>
+
+  <h2>Final Thoughts</h2>
+  <p>With the success of other franchise-based mobile games, <em>Game of Thrones: Kingsroad</em> could be one of 2025’s biggest launches. The combination of deep strategy, fan-favorite lore, and polished mobile experience sets the stage for a compelling return to Westeros.</p>
+</div>
+  
+
+ <br>
+
+<div align="center">      
+<script type="text/javascript">
+	atOptions = {
+		'key' : '5b4deb743c2a271b450398f37bd4ffe2',
+		'format' : 'iframe',
+		'height' : 50,
+		'width' : 320,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//dipperflightrecommend.com/5b4deb743c2a271b450398f37bd4ffe2/invoke.js"></script>
+</div>
+
+  
+    <div class="page-bar">Other News</div>
+
+<div class="news-container" id="newsList">
+    <div class="news-item"><h2>Apex Legends Mobile Lost Its Last Chance as Respawn Shuts Down Key Projects</h2><p>“We’ve made the difficult decision to stop development on two early-stage projects...<br><a href="Apex.html">Read More</a></p></div>
+
+  <div class="news-item"><h2>Valorant mobile beta test</h2><p>Riot Games has finally revealed the date of upcoming beta test of Valorant Mobile.<br><a href="valo1.html">Read More</a></p></div>
+  <div class="news-item"><h2>New Game "Shadow Rift" Launches Today</h2><p>Experience next-gen fantasy with stunning visuals.<br><a href="ShadowRift.html">Read More</a></p></div>
+  <div class="news-item"><h2>Cyber Storm: Expansion Pack Revealed</h2><p>Includes 5 new maps and a new class.<br><a href="CyberStorm.html">Read More</a></p></div>
+  <div class="news-item"><h2>Top 10 Multiplayer Games in 2025</h2><p>Discover the best co-op experiences of the year.<br><a href="Top10.html">Read More</a></p></div>
+  <div class="news-item"><h2>Battle Stars: Mobile Update</h2><p>Improved graphics and new battle pass system added.<br><a href="BattleStars.html">Read More</a></p></div>
+</div>
+    
+    <br><br>
+  
+
+
+
+<script>
+  function openMenu() {
+    const menu = document.getElementById("sideMenu");
+    menu.classList.add("open");
+  }
+
+  function closeMenu() {
+    const menu = document.getElementById("sideMenu");
+    menu.classList.remove("open");
+  }
+
+  function filterNews() {
+    const input = document.getElementById('searchInput').value.toLowerCase();
+    const newsItems = document.querySelectorAll('.news-item');
+    const videoTitles = document.querySelectorAll('h4');
+
+    newsItems.forEach(item => {
+      const text = item.innerText.toLowerCase();
+      item.style.display = text.includes(input) ? 'block' : 'none';
+    });
+
+    videoTitles.forEach(item => {
+      const text = item.innerText.toLowerCase();
+      const thumbnail = item.nextElementSibling;
+      if (text.includes(input)) {
+        item.style.display = 'block';
+        thumbnail.style.display = 'block';
+      } else {
+        item.style.display = 'none';
+        thumbnail.style.display = 'none';
+      }
+    });
+  }
+
+  function toggleDarkMode() {
+    document.body.classList.toggle('dark');
+  }
+</script>
+
+  <footer>
+    &copy; 2025 Alex. All rights reserved.
+  </footer>
+
+  <div class="page-bar">Ads</div>
+<div align="center">      
+<script type="text/javascript">
+	atOptions = {
+		'key' : '7124fe39104d1a56fb497081d5a22e87',
+		'format' : 'iframe',
+		'height' : 300,
+		'width' : 160,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//dipperflightrecommend.com/7124fe39104d1a56fb497081d5a22e87/invoke.js"></script>
+	      
+<script async="async" data-cfasync="false" src="//dipperflightrecommend.com/e1131e370f2d1660a3b3a85982902b0f/invoke.js"></script>
+<div id="container-e1131e370f2d1660a3b3a85982902b0f"></div>
+     	      
+</div>
+
+  
+</body>
+</html>
