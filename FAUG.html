@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dramic Gaming - News</title>
+  <style>
+    :root {
+      --bg-color: #FFFFE0;
+      --text-color: #000;
+      --card-bg: #fff;
+      --header-bg: #222;
+      --button-bg: #FF5F1F;
+      --page-bar-bg: #ddd;
+    }
+
+    body.dark {
+      --bg-color: #121212;
+      --text-color: #eee;
+      --card-bg: #1e1e1e;
+      --header-bg: #000;
+      --button-bg: #ff8800;
+      --page-bar-bg: #333;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: var(--header-bg);
+      color: white;
+      padding: 10px 20px;
+      flex-wrap: wrap;
+    }
+
+    .left-group {
+      display: flex;
+      align-items: center;
+    }
+
+    .menu-icon {
+      width: 30px;
+      cursor: pointer;
+      margin-right: 15px;
+    }
+
+    .menu-icon div {
+      height: 4px;
+      background-color: white;
+      margin: 5px 0;
+    }
+
+    .title {
+      font-size: 40px;
+      font-weight: bold;
+      margin-right: 20px;
+    }
+
+    .toggle-dark {
+      background: #444;
+      color: white;
+      border: 1px solid #888;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-left: 10px;
+    }
+
+    .side-menu {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      transition: width 0.3s ease;
+      padding-top: 60px;
+      z-index: 999;
+      display: none;
+    }
+
+    .side-menu.open {
+      width: 250px;
+      display: block;
+    }
+
+    .side-menu a {
+      padding: 10px 20px;
+      text-decoration: none;
+      font-size: 18px;
+      color: white;
+      display: block;
+    }
+
+    .side-menu a:hover {
+      background-color: #575757;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 30px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .news-container {
+      padding: 10px;
+    }
+
+    .news-item {
+      background: var(--card-bg);
+      margin-bottom: 15px;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 5px 8px 15px rgba(0,0,0,0.1);
+      background-color: #ccc;
+    }
+
+    .news-item h2 {
+      margin-top: 0;
+    }
+
+    .page-bar {
+      background-color: var(--header-bg);
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border-bottom: 1px solid;
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    footer {
+      background-color: #222;
+      color: #fff;
+      text-align: center;
+      padding: 15px;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+    }
+
+    @media (max-width: 600px) {
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .title {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="left-group">
+      <div class="menu-icon" onclick="openMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="title">Dramic Gaming</div>
+    </div>
+  </div>
+
+  <div id="sideMenu" class="side-menu">
+    <span class="close-btn" onclick="closeMenu()">&times;</span>
+    <a href="index.html">Home</a>
+    <a href="News.html">News</a>
+    <a href="Reviews.html">Reviews</a>
+    <a href="Contact.html">Contact</a>
+    <button class="toggle-dark" onclick="toggleDarkMode()">Dark Mode</button>
+  </div>
+
+  <div class="news-container">
+<div class="news-container">
+  <h2>FAU-G Relaunches with Major Overhaul on May 1, 2025</h2>
+  <p><em>By Alex | May 1, 2025</em></p>
+  <img src="FAUG.jpg" alt="FAU-G 2025 Game Poster">
+
+      <div align="center">      
+<script type="text/javascript">
+	atOptions = {
+		'key' : '5b4deb743c2a271b450398f37bd4ffe2',
+		'format' : 'iframe',
+		'height' : 50,
+		'width' : 320,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//dipperflightrecommend.com/5b4deb743c2a271b450398f37bd4ffe2/invoke.js"></script>
+	      </div>
+
+
+  <p><strong>FAU-G (Fearless and United Guards)</strong> has officially relaunched today with a major overhaul, offering gamers a brand-new experience on Android and iOS platforms. Developed by nCORE Games, the reboot aims to redeem its mixed past with polished gameplay, a new storyline, and advanced combat mechanics.</p>
+
+  <p>The 2025 version introduces multiplayer modes, including Team Deathmatch and Free-for-All, alongside its improved campaign. Set in futuristic conflict zones, players will engage in high-stakes missions inspired by real-life military operations, using enhanced AI and immersive sound design.</p>
+
+  <p>FAU-G now also supports competitive ranking, controller compatibility, and optimized performance for low-end devices, making it accessible to a wide range of players across India and beyond.</p>
+
+  <p><strong>FAU-G is available for free</strong> on the 
+    <a href="https://play.google.com/store/apps/details?id=com.ncoregames.faug" target="_blank">Google Play Store</a> and 
+    <a href="https://apps.apple.com/app/id1542216331" target="_blank">Apple App Store</a>.
+  </p>
+  </div>
+  <div align="center">
+    <script type="text/javascript">
+      atOptions = {
+        'key' : '5b4deb743c2a271b450398f37bd4ffe2',
+        'format' : 'iframe',
+        'height' : 50,
+        'width' : 320,
+        'params' : {}
+      };
+    </script>
+    <script type="text/javascript" src="//dipperflightrecommend.com/5b4deb743c2a271b450398f37bd4ffe2/invoke.js"></script>
+  </div>
+</div>
+  </div>
+    <div class="page-bar">Other News</div>
+      <div class="news-container">
+
+    <div class="news-item"><h2>Apex Legends Mobile Cancelled</h2><p>“We’ve made the difficult decision to stop development on two early-stage projects...<br><a href="Apex.html">Read More</a></p></div>
+    <div class="news-item"><h2>Valorant Mobile Beta Test Announced</h2><p>Riot Games has revealed the upcoming beta test date for Valorant Mobile.<br><a href="valo1.html">Read More</a></p></div>
+    <div class="news-item"><h2>Shadow Rift Launches Today</h2><p>Next-gen fantasy action with stunning visuals.<br><a href="ShadowRift.html">Read More</a></p></div>
+    <div class="news-item"><h2>Cyber Storm Expansion Revealed</h2><p>Five new maps and a new class are coming soon.<br><a href="CyberStorm.html">Read More</a></p></div>
+    <div class="news-item"><h2>Top 10 Multiplayer Games of 2025</h2><p>Explore this year’s best multiplayer titles.<br><a href="Top10.html">Read More</a></p></div>
+    <div class="news-item"><h2>Battle Stars Update</h2><p>Improved graphics and new battle pass system.<br><a href="BattleStars.html">Read More</a></p></div>
+  </div>
+
+  <footer>&copy; 2025 Dramic Gaming</footer>
+
+  <script>
+    function openMenu() {
+      document.getElementById("sideMenu").classList.add("open");
+    }
+
+    function closeMenu() {
+      document.getElementById("sideMenu").classList.remove("open");
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark");
+    }
+  </script>
+  <div class="page-bar">Ads</div>
+<div align="center">      
+<script type="text/javascript">
+	atOptions = {
+		'key' : '7124fe39104d1a56fb497081d5a22e87',
+		'format' : 'iframe',
+		'height' : 300,
+		'width' : 160,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//dipperflightrecommend.com/7124fe39104d1a56fb497081d5a22e87/invoke.js"></script>
+	      
+<script async="async" data-cfasync="false" src="//dipperflightrecommend.com/e1131e370f2d1660a3b3a85982902b0f/invoke.js"></script>
+<div id="container-e1131e370f2d1660a3b3a85982902b0f"></div>
+     	      
+</div>
+</body>
+</html>
